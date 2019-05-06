@@ -66,6 +66,7 @@ named!(pub ws_sep,
     recognize!(many0!(take_ws))
 );
 
+#[macro_export]
 macro_rules! skip_ws_all {
     ($i:expr, $submac:ident!( $($args:tt)* )) => ({
         complete!(
@@ -75,6 +76,7 @@ macro_rules! skip_ws_all {
     });
 }
 
+#[macro_export]
 macro_rules! skip_ws_tag {
     ($i:expr, $tag:expr) => (
         eat_ws_sep!($i, tag!($tag))
