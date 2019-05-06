@@ -34,7 +34,7 @@ named!(float_sgn_suffix<i32>,
 
 named!(float_mag<i32>, preceded!(alt!(tag!("e") | tag!("E")), float_sgn_suffix));
 
-named!(decimal_bytes<&[u8]>,
+named!(pub decimal_bytes<&[u8]>,
     //map!(
         recognize!(
             tuple!(
