@@ -6,6 +6,38 @@ use std::fmt;
 use nom::digit;
 use nom::IResult;
 
+impl NumLiteral {
+    pub fn from_full_dec(digits: &[u8]) -> NumLiteral {
+        let s = std::str::from_utf8(digits).unwrap();
+        if let Ok(n) = isize::from_str_radix(s, 10) {
+            NumLiteral::Int(n)
+        }
+        else {
+            let f:f64 = FromStr::from_str(s).unwrap();
+            NumLiteral::Float(f)
+        }
+    }
+}
+
+#[derive(Debug)]
+pub enum NumLiteral {
+    Float(f64),
+    Int(isize)
+}
+
+impl fmt::Display for NumLiteral {
+     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+         match self {
+            NumLiteral::Int(i) => write!(f, "{}", i),
+            NumLiteral::Float(i) => write!(f, "{}", i)
+         }
+     }
+}
+
+named!(pub num_lit<NumLiteral>,
+    map!(decimal_bytes, NumLiteral::from_full_dec)
+);
+
 named!(pub decimal<usize>,
    map_res!(
        map_res!(
@@ -44,7 +76,7 @@ named!(pub decimal_bytes<&[u8]>,
                opt!(complete!(float_mag))
             )
         )
-    //    Numeral::from_full_dec
+    //    NumLiteral::from_full_dec
     //)
 );
 
