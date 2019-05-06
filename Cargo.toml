@@ -1,0 +1,10 @@
+[package]
+name = "jq-nomutil"
+version = "0.1.0"
+authors = ["john"]
+edition = "2018"
+
+[dependencies]
+
+[dependencies.nom]
+version = "^3"
