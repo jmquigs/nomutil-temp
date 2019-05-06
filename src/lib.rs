@@ -82,7 +82,7 @@ macro_rules! skip_ws_all {
 #[macro_export]
 macro_rules! skip_ws_tag {
     ($i:expr, $tag:expr) => (
-        eat_ws_sep!($i, tag!($tag))
+        skip_ws_all!($i, tag!($tag))
     );
 }
 
