@@ -56,12 +56,15 @@ pub fn is_ws(c: u8) -> bool {
     }
 }
 
+#[macro_export]
 named!(pub take_ws<&[u8], &[u8]>, take_while1!(is_ws));
 
 // todo: need a whitespace consumer that doesn't allocate a vec
+#[macro_export]
 named!(pub junk<&[u8], Vec<&[u8]> >, 
    many0!(take_ws));
 
+#[macro_export]
 named!(pub ws_sep,
     recognize!(many0!(take_ws))
 );
